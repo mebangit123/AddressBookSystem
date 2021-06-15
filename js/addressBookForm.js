@@ -3,8 +3,9 @@ const save = () => {
     console.log("inside Save")
         let contactDetails = createContact();
         alert(contactDetails.toString());   
+        createAndUpdateStorage(contactDetails);
 }
-function createContact() {
+function createContact(contactDetails) {
     let contact = new Contact();
     try {
         contact._fullName = getInputValueByID('#fName');   
@@ -17,6 +18,18 @@ function createContact() {
     contact._state = getInputValueByID('#state');
     contact._zip = getInputValueByID('#zip');
     return contact;
+}
+const createAndUpdateStorage = (data) => {
+    let dataList = JSON.parse(localStorage.getItem('ContactList'))
+    if(dataList != undefined){
+        dataList.push(data)
+    }
+    else
+    {
+        dataList = [data]
+    }
+    localStorage.setItem("ContactList", JSON.stringify(dataList));
+    alert("Data stored with name: "+data.fullName)
 }
 const getInputValueByID = (id) => {
     let value = document.querySelector(id).value
