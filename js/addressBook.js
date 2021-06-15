@@ -6,11 +6,18 @@ class Contact {
     }
     get fullName() { return this._fullName }
     set fullName(fullName) {
-        this._fullName = fullName;
+        let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
+        if(nameRegex.test(fullName)) {
+            this._fullName = fullName;
+        }
+        else throw 'Name is Incorrect!';
     }
     get phoneNo() { return this._phoneNo }
     set phoneNo(phoneNo) {
-        this._phoneNo = phoneNo;
+        let phoneRegex = RegExp('^([0-9]{2}[\\s])?[1-9][0-9]{9}$');
+        if(phoneRegex.test(phoneNo))
+            this._phoneNo = phoneNo;
+        else throw 'Invalid Phone Number!'
     }
     get address() { return this._address }
     set address(address) {
