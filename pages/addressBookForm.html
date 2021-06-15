@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/addressBookForm.css">
+    <script type="text/javascript" src="../js/addressBookForm.js"></script>
+    <script type="text/javascript" src="../js/utility.js"></script>
     <title>AddressBook Form</title>
 </head>
 <body>
@@ -19,13 +21,14 @@
         </div>
     </header>
     <div class="form-content">
-        <form action="#" class="form" onsubmit="" name="">
+        <form action="#" class="form" onreset="" onsubmit="" name="">
             <div class="form-head">
                 Person Address Form
             </div>
             <div class="row-content" id="fullName">
                 <label for="fullName" class="label text">Full Name</label>
                 <input type="text" id="fName" class="input" name="fName" required>
+                <error-output class="error-output"></error-output>
             </div>
             <div class="row-content space">
                 <label for="phone" class="label text">Phone Number</label>
@@ -52,6 +55,12 @@
                     <label for="zip" class="label text">Zip</label>
                     <input type="number" id="zip" class="input" name="zip" required>
                 </div>  
+            </div>
+            <div class="column-content">
+                <div class="buttonParent">
+                    <button type="submit" class="button submitButton" id="submitButton">Submit</button>
+                    <button type="reset"  class="resetButton button">Reset</button>
+                </div>
             </div>
         </form>
     </div>
