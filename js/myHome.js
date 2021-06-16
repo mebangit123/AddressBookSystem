@@ -18,8 +18,8 @@ const createInnerHtml = () => {
         <td>${contactData._zip}</td>
         <td>${contactData._phoneNo}</td>
         <td>
-            <img id="${contactData._id}" src="../assets/icons/delete-black-18dp.svg" alt="Delete" onclick="remove(this)">
-            <img id="${contactData._id}" src="../assets/icons/create-black-18dp.svg" alt="Edit" onclick="update(this)">
+            <img name="${contactData._id}" src="../assets/icons/delete-black-18dp.svg" alt="Delete" onclick="remove(this)">
+            <img name="${contactData._id}" src="../assets/icons/create-black-18dp.svg" alt="Edit" onclick="update(this)">
         </td>
     </tr>`;
     }
@@ -39,4 +39,12 @@ const remove = (data) => {
     contactList.splice(index, 1);
     localStorage.setItem("ContactList", JSON.stringify(contactList));
     createInnerHtml();
+}
+const update = (data) => {
+    console.log(data.id)
+    let contactDetails = contactList.find(contact => contact._id == data.id);
+    if(!contactDetails)
+    return;
+    localStorage.setItem("edit-contact", JSON.stringify(contactDetails));
+    window.location.replace(site_properties.add_contact_page);
 }

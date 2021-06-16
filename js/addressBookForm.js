@@ -1,4 +1,6 @@
-console.log("Loaded");
+let isUpdate = false;
+let contactObj = {};
+
 const save = () => {
         console.log("inside Save")
         let contactDetails = createContact();
@@ -31,6 +33,28 @@ const createAndUpdateStorage = (data) => {
     }
     localStorage.setItem("ContactList", JSON.stringify(dataList));
     alert("Data stored with name: "+data.fullName)
+}
+const checkForUpdate = () => {
+    const empJson = localStorage.getItem('edit-contact');
+    isUpdate  = empJson? true:false;
+    if(!isUpdate){
+        return;
+    }
+    contactObj = JSON.parse(empJson);
+    setForm();
+    console.log(contactObj);
+}
+const setForm = () => {
+    setValue('#name', contactObj._fullName);
+    setValue('#address', contactObj._address);
+    setValue('#city',contactObj._city);
+    setValue('#state',contactObj._state);
+    setValue('#zip', contactObj._zip);
+    setValue('#phone', contactObj._phoneNo)
+}
+const setValue = (id, value) => {
+    let element = document.querySelector(id);
+    element.value = value;
 }
 const getInputValueByID = (id) => {
     let value = document.querySelector(id).value
