@@ -50,12 +50,12 @@ body{
     margin: 0 auto;
     padding-bottom: 25px;
 }
-.emp-detail-text{
-    font: normal normal bold 24px/25px Roboto;
-    letter-spacing: 0px;
-    color: #42515f;
-    opacity: 1;
+.person-detail-text{
     text-align: left;
+    font: normal normal bold 28px/25px Roboto;
+    letter-spacing: 0px;
+    color: #42515F;
+    opacity: 1;
 }
 .add-button{
     font: normal normal normal 22px/29px Roboto;
@@ -68,4 +68,45 @@ body{
     outline: none;
     text-decoration: none;
     background: #008CFF 0% 0% no-repeat padding-box;
+}
+.table-main{
+    width: 80%;
+    margin: 0 auto;
+    overflow: auto;
+}
+.table {
+    width: 100%;
+    border-collapse: separate;
+    min-width: 800px;
+    border-spacing: 0 12px;
+}
+td, th{
+    text-align: left;
+    padding: 3px 20px;
+}
+th{
+    text-align: left;
+    font: normal normal bold 18px/22px Lato;
+    letter-spacing: 0px;
+    color: #658292;
+    text-transform: capitalize;
+    opacity: 1;
+    border-radius: 3px 3px 0px 0px;
+    border: 0px solid #dddddd;
+}
+tr:not(:first-child){
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+}
+td{
+    text-align: left;
+    font: normal normal 600 16px/19px Lato;
+    letter-spacing: 0px;
+    color: #3D3D3D;
+    opacity: 1;
+}
+td:first-child{
+    display: flex;
+    align-items: center;
 }
