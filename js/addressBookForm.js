@@ -1,9 +1,10 @@
 console.log("Loaded");
 const save = () => {
-    console.log("inside Save")
+        console.log("inside Save")
         let contactDetails = createContact();
         alert(contactDetails.toString());   
         createAndUpdateStorage(contactDetails);
+        window.location.replace(site_properties.home_page);
 }
 function createContact(contactDetails) {
     let contact = new Contact();
