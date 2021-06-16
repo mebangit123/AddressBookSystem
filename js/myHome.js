@@ -26,29 +26,17 @@ const createInnerHtml = () => {
     document.querySelector('#display', ).innerHTML = innerHtml;
 }
 
-const createcontactJSON  = () => {
-        const contactistLocal =[
-            {
-                _id: 1,
-                _fullName: "Meban Nongrum",
-                _address: "Amjajer",
-                _city: "Shillong",
-                _state: "Meghalaya",
-                _zip: 703150,
-                _phoneNo: 9865797545,
-            },
-            {
-                _id: 2,
-                _fullName: "Jaspar Dhar",
-                _address: "Nartiang",
-                _city: "Shillong",
-                _state: "Meghalaya",
-                _zip: 703150,
-                _phoneNo: 9863497545,
-            }
-        ]
-        return contactistLocal;
+const getDataFromLocalStorage = () => {
+    return localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : [];
+}
+const remove = (data) => {
+    let contactDetails = contactList.find(contact => contact._id == data.id);
+    if(!contactDetails) {
+        return;
     }
-    const getDataFromLocalStorage = () => {
-        return localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : [];
-    }
+    const index = contactList.map(contact => contact._id)
+                                        .indexOf(contactDetails.id);
+    contactList.splice(index, 1);
+    localStorage.setItem("ContactList", JSON.stringify(contactList));
+    createInnerHtml();
+}
