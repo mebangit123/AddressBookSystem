@@ -1,38 +1,103 @@
 let isUpdate = false;
 let contactObj = {};
 
-const save = () => {
-        console.log("inside Save")
-        let contactDetails = createContact();
-        alert(contactDetails.toString());   
-        createAndUpdateStorage(contactDetails);
-        window.location.replace(site_properties.home_page);
+window.addEventListener("DOMContentLoaded", (event)=>{
+    validatePhoneNo();
+    validateName();
+    checkForUpdate();
+});
+
+const validateName = () => {
+    let textError = document.querySelector('.error-output');
+    let name = document.querySelector('#fName');
+    name.addEventListener('input', () => {
+        if(name.value.length == 0){
+            return textError.textContent ='';
+        }
+        try {
+            checkName(name.value);
+            textError.textContent = "";   
+        } catch (error) {
+            textError.textContent = error;
+        }
+    })
 }
-function createContact(contactDetails) {
-    let contact = new Contact();
+
+const validatePhoneNo = () => {
+    let textError = document.querySelector('.phoneNo-error');
+    let phoneNo = document.querySelector('#phone');
+    phoneNo.addEventListener('input', () => {
+        try {
+            checkPhoneNo(phoneNo.value);
+            textError.textContent = "";   
+        } catch (error) {
+            textError.textContent = error;
+        }
+    })
+}
+const save = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     try {
-        contact._fullName = getInputValueByID('#fName');   
-        contact._phoneNo = getInputValueByID('#phone');
+        setContactObj();
+        createAndUpdateStorage();
+        resetForm();
+        window.location.replace(site_properties.home_page);   
     } catch (error) {
-        alert(error);
+        alert("Error: Cannot Save Contact!")
+        return;
     }
-    contact._address = getInputValueByID('#address');
-    contact._city = getInputValueByID('#city');
-    contact._state = getInputValueByID('#state');
-    contact._zip = getInputValueByID('#zip');
+}
+function setContactObj() {
+    contactObj._fullName = getInputValueByID('#fName');   
+    contactObj._phoneNo = getInputValueByID('#phone');
+    contactObj._address = getInputValueByID('#address');
+    contactObj._city = getInputValueByID('#city');
+    contactObj._state = getInputValueByID('#state');
+    contactObj._zip = getInputValueByID('#zip');
+}
+const createAndUpdateStorage= () => {
+    let contactList = JSON.parse(localStorage.getItem("ContactList"));
+    if(contactList) {
+        let contactDetails = contactList.find(contact => contact._id == contactObj._id);
+        if(!contactDetails) {
+            contactList.push(createContactData())
+        }else {
+            const index = contactList.map(contact => contact.id)
+                                             .indexOf(contactDetails._id);
+            contactList.splice(index, 1, createContactData(contactDetails._id))
+        }
+    }else {
+        contactList = [createContactData()];
+    }
+    localStorage.setItem("ContactList", JSON.stringify(contactList));
+    alert("Data Stored");
+}
+const createContactData = (id) => {
+    let contact = new Contact();
+    if(!id) contact.id = createNewContactId();
+    else contact.id = id;
+    setContact(contact);
     return contact;
 }
-const createAndUpdateStorage = (data) => {
-    let dataList = JSON.parse(localStorage.getItem('ContactList'))
-    if(dataList != undefined){
-        dataList.push(data)
+const setContact = (contact) => {
+    try {
+        contact.fullName = contactObj._fullName;   
+        contact.phoneNo = contactObj._phoneNo;
+    } catch (error) {
+        alert(error);
+        throw error;
     }
-    else
-    {
-        dataList = [data]
-    }
-    localStorage.setItem("ContactList", JSON.stringify(dataList));
-    alert("Data stored with name: "+data.fullName)
+    contact.address = contactObj._address;
+    contact.city = contactObj._city;
+    contact.state = contactObj._state;
+    contact.zip = contactObj._zip
+}
+const createNewContactId = () => {
+    let cId = localStorage.getItem("ContactId");
+    cId = !cId? 1:(parseInt(cId)+1).toString();
+    localStorage.setItem('ContactId', cId);
+    return cId;
 }
 const checkForUpdate = () => {
     const empJson = localStorage.getItem('edit-contact');
@@ -42,15 +107,26 @@ const checkForUpdate = () => {
     }
     contactObj = JSON.parse(empJson);
     setForm();
-    console.log(contactObj);
 }
 const setForm = () => {
-    setValue('#name', contactObj._fullName);
+    setValue('#fName', contactObj._fullName);
     setValue('#address', contactObj._address);
     setValue('#city',contactObj._city);
     setValue('#state',contactObj._state);
     setValue('#zip', contactObj._zip);
     setValue('#phone', contactObj._phoneNo)
+}
+const resetForm = () => {
+    setValue('#fName', '');
+    setValue('#address', '');
+    setValue('#city','');
+    setValue('#state','');
+    setValue('#zip', '');
+    setValue('#phone', '')
+}
+const setTextValue = (id, message) => {
+    let textError = document.querySelector(id);
+    textError.textContent = message;
 }
 const setValue = (id, value) => {
     let element = document.querySelector(id);

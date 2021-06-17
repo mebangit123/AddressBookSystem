@@ -54,11 +54,10 @@ body{
     border-radius: 8px;
     opacity: 1;
 }
-
 .form-head{
-    justify-content: center;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     text-align: center;
     background-color: #008CFF;
     font: normal normal normal 28px/37px Roboto;
@@ -68,6 +67,15 @@ body{
     padding: 20px;
     border-radius: 5px 5px 0 0;
     text-transform: uppercase;
+}
+#form-head-text {
+    margin-left: 250px;
+    text-align: left;
+    font: normal normal normal 28px/37px Roboto;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    opacity: 1;
 }
 .row-content{
     margin: 15px 150px;
@@ -87,6 +95,12 @@ body{
     border: 0px solid green;
 }
 .error-output{
+    margin-left: 10px;
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+.phoneNo-error {
     margin-left: 10px;
     font-size: 12px;
     font-style: italic;
@@ -124,7 +138,6 @@ select{
     color: #42515f;
     background-color: transparent;
 }
-
 .buttonParent{
     display: flex;
     align-content: flex-end;
@@ -163,4 +176,7 @@ select{
     text-decoration: none;
     text-align: center;
     background-color: #d1d0d0;
+}
+.cancel-img {
+   margin: 0 20px;
 }

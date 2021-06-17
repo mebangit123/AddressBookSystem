@@ -2,6 +2,7 @@ let contactList;
 window.addEventListener('DOMContentLoaded', (event) => {
     contactList = getDataFromLocalStorage();
     createInnerHtml();
+    localStorage.removeItem("edit-contact");
 })
 
 const createInnerHtml = () => {
@@ -18,8 +19,8 @@ const createInnerHtml = () => {
         <td>${contactData._zip}</td>
         <td>${contactData._phoneNo}</td>
         <td>
-            <img name="${contactData._id}" src="../assets/icons/delete-black-18dp.svg" alt="Delete" onclick="remove(this)">
-            <img name="${contactData._id}" src="../assets/icons/create-black-18dp.svg" alt="Edit" onclick="update(this)">
+            <img id ="${contactData._id}" src="../assets/icons/delete-black-18dp.svg" alt="Delete" onclick="remove(this)">
+            <img id ="${contactData._id}" src="../assets/icons/create-black-18dp.svg" alt="Edit" onclick="update(this)">
         </td>
     </tr>`;
     }
